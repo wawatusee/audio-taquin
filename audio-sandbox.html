@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/audio.css">
+    <script src="js/audio.js"></script>
+    <title>Audio-Sand-box</title>
+</head>
+<body>
+    <header>
+    <!--Ici navigation si nécessaire-->
+    </header>
+    <main>
+        <section>
+            <h1>Audio Sand box</h1>
+            <p>Essai de la balise audio, html, css, et js. Abordée pour réaliser un taquin musical.</p>
+        </section>
+        <section >
+            <h2>Explication</h2>
+            <article >
+                <h3>Qu'est-ce qu'un taquin?</h3>
+                <div class="txt-image">
+                    <p>Le taquin est un jeu que l'on pourrait apparenter à un petit puzzle contraignant.<br>
+                        Le taquin standart représente une image qui tient dans un rectangle, divisé en 16 pièces, disposées dans un tableau de 4 lignes, 4 colonnes, une de ses pièces est manquante.
+                        La position de départ des pièces est désordonnée, le joueur doit remettre les pièces dans l'ordre.
+                        Pour bouger les pièces le joueur dispose de la place vide laissée par la pièce manquante.
+                    </p>
+                    <figure>
+                        <img src="img/illustration-taquin-desordonné.jpg" alt="Illustration de taquin">
+                        <figcaption>Modèle de taquin image</figcaption>
+                    </figure>
+
+                </div>
+            </article>
+            <article>
+                <h3>Qu'est-ce qu'un taquin musical?</h3>
+                <p>C'est comme un taquin avec un morceau de musique. Un morceau de musique est découpé en 16 pièce, chaque pièce représente un 16eme du temps du morceau. A chaque fois que le joueur appuie sur une de ces pièces le son de cette pièce est joué puis celle qui est à sa droite, jusqu'au bout de la ligne puis le son passe à la ligne du dessous. Quand le son arrive à la pièce invisible il se tait pendant le temps correspondant à une pièce(1/16 eme de morceau).            </p>
+                <p>Le but du taquin est de remettre le morceau dans l'ordre.</p>
+            </article>
+        </section>
+        <section>
+            <h2>Pratique</h2>
+            <article>
+                <h3>Lecteur son simple</h3>
+                <figure>
+                    <h4>Mise en place avec fonctions natives</h4>
+                    <figcaption>
+                        Code HTML
+                        <pre>
+                            &lt;audio controls src="sounds/mixomatoze-02.ogg"&gt;
+                            &lt;/audio &gt;
+                        </pre>
+                        Le petit mot "controls" suffit à faire apparaitre le lecteur.
+                    </figcaption>
+                    <audio controls
+                     src="sounds/mixomatoze-02.ogg">
+                    </audio>
+                </figure>
+            </article>
+            <article>
+                <h3>Lecteur son simple avec accès à des moments de lecture précis</h3>
+                <figure>
+                    <h4>Structure du lecteur:</h4>
+                    <figcaption>
+                        Code HTML
+                        <pre>
+                            &lt;audio id="soundWithControl" preload="auto" controls src="sounds/mixomatoze-02.ogg"&gt;
+                            &lt;/audio &gt;
+                            &lt;button onclick="playThere(8)"&gt;Bouton play&lt;/button&gt;&lt;button onclick="stopLeSon()"&gt;Bouton stop&lt;/button&gt;
+                        </pre>
+                        L'attribut preload avec la valeur auto indique que tout le fichier peut être téléchargé, cet attribut sera peut-être nécessaire pour pouvoir accéder à n'importe quel instant du morceau tout de suite..
+                    </figcaption>
+                    <audio id="soundWithControl" preload="auto" controls
+                     src="sounds/mixomatoze-02.ogg">
+                    </audio>
+                </figure>
+                <figure>
+                    <h4>Fonction utiliséé:</h4>
+                    <figcaption>
+                        Code JS
+                        <pre>
+                            function playThere(time) { 
+                                audio.currentTime=time;
+                                audio.play();
+                              }
+                              function stopLeSon() { 
+                                var audio=document.getElementById("soundWithControl");
+                                audio.pause();
+                              }
+                        </pre>
+                        On devrait pouvoir accéder au temps voulu avec cette écriture.
+                    </figcaption>
+                    <audio preload="auto"
+                        src="sounds/mixomatoze-02.ogg">Là un son sans controle car on va le maitriser avec des boutons que l'on crée.
+                    </audio>
+                    <a href="#">SOUND WITH CONTROL HERE:(isn't shown but is here)</a>
+                    <p>Là un son sans controle car on va le maitriser avec des boutons que l'on crée.</p>
+                    <button onclick="playThere(10)">Joue à 10sec</button>
+                    <button onclick="playThere(20)">Joue à 20secondes</button>
+                    <button onclick="stopLeSon()">Bouton stop</button>
+                </figure>
+            </article>
+                <h3>Obtenir les propriétés et fonctions qui vont nous permettre de coller tout ça au taquin</h3>
+                <figure>
+                    <h4> Propriété duration</h4>
+                    <figcaption>
+                        Code JS
+                        <pre>
+                            var trackDuration = document.getElementById("soundWithControl").duration;
+                        </pre>
+                        A laquelle nous accédons grace à une fonction.
+                        <pre>
+                            function getTrackDuration(iDTrack){
+                                var trackDuration = document.getElementById(iDTrack).duration;
+                                return trackDuration;
+                              }
+                              var trackDuration =getTrackDuration("soundWithControl");
+                        </pre>
+                    </figcaption>
+                    <p>Grace a ces fonctions nous obtenons les valeurs nécessaires à la construction du taquin musical, la durée du morceau et la durée attribuée à une pièce d'un 16 eme de morceau.</p>
+                    <button onclick=getTrackDuration("soundWithControl");feedATextField("trackDuration",getTrackDuration("soundWithControl"));feedATextField("eachPieceDuration",Math.round(getTrackDuration("soundWithControl")/16*1000)/1000)>Temps</button>
+                    <input type="text" id="trackDuration" value="durée du morceau">Durée divisée par 16<input type="text" id="eachPieceDuration" value="16eme du morceau">
+                </figure>
+                <figure>
+                    <h4>Fonction setIntervall</h4>
+                    <figcaption>
+                        Code JS
+                        <pre>
+                            const orderArray=[9,11,2,14,15,1,3,8,16,7,4,12,5,13,6,10];
+                            var orderArray=[9,11,2,14,15,1,3,8,16,7,4,12,5,13,6,10];
+  
+                            function setIntervall(whatOrder){
+                              var debug="Debug :<br>"
+                              let indexOfPieceClicked=orderArray.indexOf(Number(whatOrder));
+                              debug+='Dans le tableau des ordres, index de la pièce cliquée(indexOfPieceClicked): '+indexOfPieceClicked+"<br>"
+                              let trackDuration=getTrackDuration("soundWithControl")
+                              debug+="Durée du morceau(trackDuration): "+trackDuration+"<br>"
+                              let pieceDuration=Math.round(trackDuration/16)
+                              debug+="durée d'une piece(pieceDuration):"+pieceDuration+"sec<br>"
+                              let firstRangeOfTheTrack=pieceDuration*whatOrder
+                              debug+="Plage à jouer en premier(whatOrder*pieceDuration):"+firstRangeOfTheTrack+"sec<br>"
+                              playTheMusic()
+                              setCurrentTime(firstRangeOfTheTrack)
+                              /* */
+                              //DEBUG
+                              let textDebug=document.getElementById("setintervallDebug");
+                              if(modeDebug){textDebug.style.visibility= "visible";
+                              textDebug.innerHTML=debug
+                            }
+                              else textDebug.style.visibility= "hidden";
+                            }
+                        </pre>
+                    </figcaption>
+                    <p>La fonction setIntervall paramétrée avec le temps d'un 16eme de morceau trouvé ci dessus nous permet de passer d'une pièce à l'autre. 
+                        <ul>
+                            <li>Au click sur une pièce du taquin on appelle la fonction qui Parse un tableau contenant l'ordre de chaque pièce;</li>
+                            <li>On multiplie par le 16eme de temps, on joue ce temps avec le son avec la fonction playThere(leTemps);</li>
+                            <li>Repèrons quelle est l'index de l'ordre de la pièce cliquée;</li>
+                            <li>On stoque dans une variable cet index +1;</li>
+                            <li>On lance setIntervall avec comme interval le 16eme de temps;</li>
+                            <li>setIntervall jouera comme fonction playThere(avec La Variable index comme parametre qui nous permet de récupérer l'ordre que l'on multiplie par le 16eme, Ouf!)</li>
+                        </ul>
+                    </p>
+                    <button onclick="setIntervall(0)">Simulation click taquin</button>
+
+                    <p class="debug" id="setintervallDebug"></p>
+                    <button onclick="setCurrentTime(1)">Retoune à 1</button>
+                    <button onclick="stopOnTimeNextPiece()">Stop taquin musical</button>
+                </figure>
+            <article>
+                
+            </article>
+        </section>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+</html>
