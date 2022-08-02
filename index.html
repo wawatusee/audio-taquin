@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://kievu.com/taquins/kieran/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="./js/jquery.js"></script>
+    <script type="text/javascript" src="./js/zoombox.js"></script> 
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/taquin.css">
+    <link href="./css/zoombox.css" rel="stylesheet" type="text/css" media="screen">
+    <title>Taquin</title>
+        <!--Déclaration de la variable qui sera employée pour l'arrière plan de chaque pièce. Attention au slash ajouté avant le nom du dossier-->
+   <!--Utilisé pour le style de class piece dans taquin.css pour le background--> 
+   <style>:root{--image-taquin:url('../images/16550166968311318459790648736210.jpg');
+                --totalLargeur:400px;
+                --ratioImage:0.75;
+            }
+    </style>
+</head>
+<body onload="taquin()">
+    <div class="c1">
+        <header>
+            <h1>Taquin Musical</h1>
+        </header>
+        <section id="scene">
+            <div class="taquin">
+                <div class="piece" style="background-position: 0px 0px; order: 9;"></div>
+                <div class="piece" style="background-position: -100px 0px; order: 11;"></div>
+                <div class="piece" style="background-position: -200px 0px; order: 2;"></div>       
+                <div class="piece" style="background-position: -300px 0px; order: 14;"></div>             
+                <div class="piece" style="background-position: 0px -75px; order: 15;"></div>             
+                <div class="piece" style="background-position: -100px -75px; order: 1;"></div>             
+                <div class="piece" style="background-position: -200px -75px; order: 3;"></div>             
+                <div class="piece" style="background-position: -300px -75px; order: 8;"></div>             
+                <div class="piece" style="background-position: 0px -150px; order: 16;"></div>             
+                <div class="piece" style="background-position: -100px -150px; order: 7;"></div>             
+                <div class="piece" style="background-position: -200px -150px; order: 4;"></div>             
+                <div class="piece" style="background-position: -300px -150px; order: 12;"></div>             
+                <div class="piece" style="background-position: 0px -225px; order: 5;"></div>             
+                <div class="piece" style="background-position: -100px -225px; order: 13;"></div>             
+                <div class="piece" style="background-position: -200px -225px; order: 6;"></div>             
+                <div id="pieceInvisible" class="piece" style="background-position: -300px -225px; order: 10;"></div>
+            </div>
+        </section>
+        <footer>
+            <section id="planDeSite">
+                <div class="debug">
+                     <fieldset>
+                        <legend>Debug</legend>
+                        <button id="numeroButton"><a href="#" onclick="displayPiecesNumber();">1</a></button>
+                        <audio id="soundWithControl" preload="auto"
+                        src="sounds/mixomatoze-02.ogg">
+                       </audio>
+                     </fieldset>
+                </div>
+            </section>
+        </footer>
+    </div>
+    <script type="text/javascript" src="./js/taquin.js"></script>
+    <script type="text/javascript" src="./js/audio.js"></script>
+</body></html>
